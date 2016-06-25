@@ -1,0 +1,34 @@
+{
+  "name": "tarai",
+  "version": "0.0.2",
+  "description": "Library for Typed Flux",
+  "main": "src/tarai.js",
+  "scripts": {
+    "test": "mocha --compilers ts:espower-typescript/guess test/**/*.ts",
+    "prepublish": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inabe49/tarai"
+  },
+  "author": "inabe49",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/inabe49/tarai/issues"
+  },
+  "homepage": "https://github.com/inabe49/tarai",
+  "files": [
+    "src/**/*.js",
+    "src/**/*.js.map"
+  ],
+  "devDependencies": {
+    "espower-typescript": "^5.0.1",
+    "mocha": "^2.5.3",
+    "power-assert": "^1.4.1",
+    "sinon": "^1.17.4"
+  },
+  "dependencies": {
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0"
+  }
+}
