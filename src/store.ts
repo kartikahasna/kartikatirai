@@ -1,12 +1,7 @@
-
 import { Callback } from "./callback";
-import { Action, Dispatcher } from "./dispatcher";
-
-
-export interface Props {
-    dispatcher?: Dispatcher;
-}
-
+import { Action } from "./action";
+import { Dispatcher } from "./dispatcher";
+import { Props } from "./property";
 
 export abstract class Store<P extends Props> {
     private _props: P;
@@ -14,7 +9,7 @@ export abstract class Store<P extends Props> {
     private _callback: Callback<P>;
 
     private _dispatched(action: Action): void {
-        this.onExecute(action, this._props);
+        this.onDispatched(action, this._props);
     }
 
 
@@ -27,7 +22,7 @@ export abstract class Store<P extends Props> {
     }
 
 
-    abstract onExecute(action: Action, current: P): void;
+    abstract onDispatched(action: Action, current: P): void;
 
     protected update(next: P): void {
         // 内部のステータスが更新された

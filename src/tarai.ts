@@ -1,11 +1,7 @@
-/// <reference path="../typings/react/react.d.ts" />
-/// <reference path="../typings/react/react-dom.d.ts" />
-
-import ReactDOM = require("react-dom");
-import React = require("react");
-
-import { Action, Dispatcher } from "./dispatcher";
-import { Props, Store } from "./store";
+import { Action } from "./action";
+import { Dispatcher } from "./dispatcher";
+import { Props } from "./property";
+import { Store } from "./store";
 import { Callback } from "./callback";
 import { bind } from "./binder";
 

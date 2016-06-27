@@ -22,9 +22,11 @@
         "convertTabsToSpaces": true
     },
     "files": [
+        "./src/action.ts",
         "./src/binder.ts",
         "./src/callback.ts",
         "./src/dispatcher.ts",
+        "./src/property.ts",
         "./src/store.ts",
         "./src/tarai.ts",
         "./test/test.ts"

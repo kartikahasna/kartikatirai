@@ -35,7 +35,7 @@ declare module "tarai" {
     abstract class Store<P extends Props> {
         constructor(defalutProps: P);
 
-        abstract onExecute(action: Action, current: P): void;
+        abstract onDispatched(action: Action, current: P): void;
 
         protected update(next: P): void;
 
@@ -45,5 +45,5 @@ declare module "tarai" {
 
 
 
-    function bind<P extends Props>(createElement: (props: P) => __React.ReactElement<P>, store: Store<P>, element: HTMLElement);
+    function bind<P extends Props>(element: HTMLElement, store: Store<P>, createElement: (props: P) => __React.ReactElement<P>);
 }

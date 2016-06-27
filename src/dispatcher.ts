@@ -1,7 +1,4 @@
-
-export interface Action {
-    type?: string;
-}
+import { Action } from "./action";
 
 export class Dispatcher {
     private _context: any;
