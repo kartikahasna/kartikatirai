@@ -1,6 +1,6 @@
 import { Callback } from "./callback";
 import { Action } from "./action";
-import { Dispatcher } from "./dispatcher";
+import { Dispatcher, createDispatcher } from "./dispatcher";
 import { Props } from "./property";
 
 export abstract class Store<P extends Props> {
@@ -14,7 +14,7 @@ export abstract class Store<P extends Props> {
 
 
     constructor(defalutProps: P) {
-        this._dispatcher = new Dispatcher(this, this._dispatched);
+        this._dispatcher = createDispatcher(this, this._dispatched);
         this._callback = new Callback<P>();
 
         this._props = defalutProps;

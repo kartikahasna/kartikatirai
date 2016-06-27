@@ -1,15 +1,13 @@
 import { Action } from "./action";
 
-export class Dispatcher {
-    private _context: any;
-    private _dispatched: (action: Action) => void;
 
-    constructor(context: any, dispatched: (action: Action) => void) {
-        this._context = context;
-        this._dispatched = dispatched;
-    }
+export interface Dispatcher {
+    (action: Action): void;
+}
 
-    public exec(action: Action) {
-        this._dispatched.apply(this._context, [action]);
-    }
+
+export function createDispatcher(context: any, dispatched: (action: Action) => void): Dispatcher {
+    return (action: Action) => {
+        dispatched.apply(context, [action]);
+    };
 }

@@ -21,9 +21,8 @@ declare module "tarai" {
         type?: string;
     }
 
-    class Dispatcher {
-        constructor(context: any, dispatched: (action: Action) => void);
-        public exec(action: Action);
+    interface Dispatcher {
+        (action: Action): void;
     }
 
 
