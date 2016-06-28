@@ -12,7 +12,7 @@ export abstract class Store<P extends Props> {
         const callback = this._actions[action.type];
 
         if (callback) {
-            callback(action);
+            callback(action, this._props);
         }
 
         this.onDispatched(action, this._props);
@@ -51,9 +51,9 @@ export abstract class Store<P extends Props> {
     }
 
 
-    private _actions: {[key: string]: (action: Action) => void};
+    private _actions: {[key: string]: (action: Action, current: P) => void};
 
-    bindAction<A extends Action>(type: string, callback: (action: A) => void) {
+    bindAction<A extends Action>(type: string, callback: (action: A, current: P) => void) {
         if (!this._actions) {
             this._actions = {};
         }
