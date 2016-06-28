@@ -1,4 +1,4 @@
-// Type definitions for tarai v0.0.4
+// Type definitions for tarai v0.0.5
 // Project: https://github.com/inabe49/tarai
 // Definitions by: inabe49 <https://github.com/inabe49>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -34,14 +34,10 @@ declare module "tarai" {
     abstract class Store<P extends Props> {
         constructor(defalutProps: P);
 
-        abstract onDispatched(action: Action, current: P): void;
-
-        protected update(next: P): void;
-
         onUpdate(callback: (next: P) => void);
         init();
 
-        bindAction<A extends Action>(type: string, callback: (action: A, current: P) => void);
+        bindAction<A extends Action>(type: string, callback: (action: A, current: P, update: (next: P) => void) => void);
     }
 
 

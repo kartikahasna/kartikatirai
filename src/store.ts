@@ -3,24 +3,37 @@ import { Action } from "./action";
 import { Dispatcher, createDispatcher } from "./dispatcher";
 import { Props } from "./property";
 
+import { createContextBindedCallback } from "./utils";
+
+
 export abstract class Store<P extends Props> {
     private _props: P;
-    private _dispatcher: Dispatcher;
+    private _dispatcher: (action: Action) => void;
+    private _update: (next: P) => void;
+
     private _callback: Callback<P>;
+    private _actions: {[key: string]: (action: Action, current: P, update: (next: P) => void) => void};
 
-    private _dispatched(action: Action): void {
-        const callback = this._actions[action.type];
-
-        if (callback) {
-            callback(action, this._props);
-        }
-
-        this.onDispatched(action, this._props);
-    }
 
 
     constructor(defalutProps: P) {
-        this._dispatcher = createDispatcher(this, this._dispatched);
+        this._update = createContextBindedCallback<P>(this, (next: P) => {
+            this._props = next;
+            this._props.dispatcher = this._dispatcher;
+
+            this._callback.fire(this._props);
+        });
+
+        this._dispatcher = createContextBindedCallback<Action>(this, (action: Action) => {
+            const callback = this._actions[action.type];
+
+            if (callback) {
+                callback(action, this._props, this._update);
+            } else {
+                console.error("unknown action type!!");
+            }
+        });
+
         this._callback = new Callback<P>();
 
         this._props = defalutProps;
@@ -29,17 +42,6 @@ export abstract class Store<P extends Props> {
         this._actions = {};
     }
 
-
-    abstract onDispatched(action: Action, current: P): void;
-
-    protected update(next: P): void {
-        // 内部のステータスが更新された
-        // View に渡すためのイベントを叩く
-        this._props = next;
-        this._props.dispatcher = this._dispatcher;
-
-        this._callback.fire(this._props);
-    }
 
     onUpdate(callback: (next: P) => void) {
         this._callback.add(callback);
@@ -51,9 +53,8 @@ export abstract class Store<P extends Props> {
     }
 
 
-    private _actions: {[key: string]: (action: Action, current: P) => void};
 
-    bindAction<A extends Action>(type: string, callback: (action: A, current: P) => void) {
+    bindAction<A extends Action>(type: string, callback: (action: A, current: P, update: (next: P) => void) => void) {
         if (!this._actions) {
             this._actions = {};
         }

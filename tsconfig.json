@@ -29,7 +29,8 @@
         "./src/property.ts",
         "./src/store.ts",
         "./src/tarai.ts",
-        "./test/sample/properties.ts",
+        "./src/utils.ts",
+        "./test/sample/store.ts",
         "./test/test.ts"
     ],
     "compileOnSave": true,
