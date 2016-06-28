@@ -9,6 +9,12 @@ export abstract class Store<P extends Props> {
     private _callback: Callback<P>;
 
     private _dispatched(action: Action): void {
+        const callback = this._actions[action.type];
+
+        if (callback) {
+            callback(action);
+        }
+
         this.onDispatched(action, this._props);
     }
 
@@ -19,6 +25,8 @@ export abstract class Store<P extends Props> {
 
         this._props = defalutProps;
         this._props.dispatcher = this._dispatcher;
+
+        this._actions = {};
     }
 
 
@@ -40,5 +48,21 @@ export abstract class Store<P extends Props> {
 
     init() {
         this._callback.fire(this._props);
+    }
+
+
+    private _actions: {[key: string]: (action: Action) => void};
+
+    bindAction<A extends Action>(type: string, callback: (action: A) => void) {
+        if (!this._actions) {
+            this._actions = {};
+        }
+
+        if (this._actions[type]) {
+            console.error("already binded Action type : " + type);
+            return;
+        }
+
+        this._actions[type] = callback;
     }
 }

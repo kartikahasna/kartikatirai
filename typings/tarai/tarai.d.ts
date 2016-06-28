@@ -40,6 +40,8 @@ declare module "tarai" {
 
         onUpdate(callback: (next: P) => void);
         init();
+
+        bindAction<A extends Action>(type: string, callback: (action: A) => void);
     }
 
 
