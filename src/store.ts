@@ -1,3 +1,6 @@
+/// <reference path="../typings/object-assign/object-assign.d.ts" />
+import objectAssign = require('object-assign');
+
 import { Callback } from "./callback";
 import { Action } from "./action";
 import { Dispatcher, createDispatcher } from "./dispatcher";
@@ -18,8 +21,8 @@ export abstract class Store<P extends Props> {
 
     constructor(defalutProps: P) {
         this._update = createContextBindedCallback<P>(this, (next: P) => {
-            this._props = next;
-            this._props.dispatcher = this._dispatcher;
+            this._props = objectAssign({}, this._props, next); // Object.assign
+            this.setDispatcher(this._props, this._dispatcher);
 
             this._callback.fire(this._props);
         });
@@ -28,20 +31,22 @@ export abstract class Store<P extends Props> {
             const callback = this._actions[action.type];
 
             if (callback) {
-                callback(action, this._props, this._update);
+                callback.apply(this, [action, this._props, this._update]);
             } else {
-                console.error("unknown action type!!");
+                console.error("unknown action type!! : " + action.type);
             }
         });
 
         this._callback = new Callback<P>();
 
         this._props = defalutProps;
-        this._props.dispatcher = this._dispatcher;
+
+        this.setDispatcher(this._props, this._dispatcher);
 
         this._actions = {};
     }
 
+    abstract setDispatcher(current: P, dispatcher: Dispatcher): void;
 
     onUpdate(callback: (next: P) => void) {
         this._callback.add(callback);

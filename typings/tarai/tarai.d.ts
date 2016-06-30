@@ -1,4 +1,4 @@
-// Type definitions for tarai v0.0.5
+// Type definitions for tarai v0.0.6
 // Project: https://github.com/inabe49/tarai
 // Definitions by: inabe49 <https://github.com/inabe49>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -36,6 +36,8 @@ declare module "tarai" {
 
         onUpdate(callback: (next: P) => void);
         init();
+
+        abstract setDispatcher(current: P, dispatcher: Dispatcher): void;
 
         bindAction<A extends Action>(type: string, callback: (action: A, current: P, update: (next: P) => void) => void);
     }

@@ -18,6 +18,9 @@ export class SimpleStore extends Store<SimpleProperty> {
         this.bindAction<Action>(STOP_SPIN, this.onStopSpin);
     }
 
+    setDispatcher(current: SimpleProperty, dispatcher: Dispatcher): void {
+        current.dispatcher = dispatcher;
+    }
 
     public onStartSpin(action: Action, current: SimpleProperty, update: (next: SimpleProperty) => void) {
         const next: SimpleProperty = {

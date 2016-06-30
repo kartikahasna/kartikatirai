@@ -1,6 +1,6 @@
 {
   "name": "tarai",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Library for Typed Flux",
   "main": "src/tarai.js",
   "scripts": {
@@ -28,6 +28,7 @@
     "sinon": "^1.17.4"
   },
   "dependencies": {
+    "object-assign": "^4.1.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0"
   }
