@@ -32,6 +32,8 @@
         "./src/next/dispatcher.ts",
         "./src/next/store.ts",
         "./src/next/tarai.ts",
+        "./src/next2/dispatcher.ts",
+        "./src/next2/tarai.ts",
         "./src/property.ts",
         "./src/store.ts",
         "./src/tarai.ts",
