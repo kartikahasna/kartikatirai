@@ -1,5 +1,5 @@
 /// <reference path="../typings/object-assign/object-assign.d.ts" />
-import objectAssign = require('object-assign');
+import objectAssign = require("object-assign");
 
 import { Callback } from "./callback";
 import { Action } from "./action";
