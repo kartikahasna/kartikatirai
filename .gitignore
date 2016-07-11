@@ -1,13 +1,16 @@
 src/**/*.js
-test/**/*.js
-
-
 src/**/*.js.map
-test/**/*.js.map
-
 src/**/*.d.ts
+
+
+test/**/*.js
+test/**/*.js.map
 test/**/*.d.ts
 
+
+sample/ts/*.js
+sample/ts/*.js.map
+sample/ts/*.d.ts
 sample/dist/*.js
 
 
