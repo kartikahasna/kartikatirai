@@ -7,42 +7,37 @@
 
 
 declare module "tarai" {
-    class Callback<T> {
+    interface StatePipe<S> {
+        getState(): S;
+        setState(next: S): void;
+    }
+
+    class ActionEvent<S, T> {
+        constructor(pipe: StatePipe<S>);
+
+        public fire(arg: T): void;
+        public bind(context: any, callback: (arg: T, current: S, update: (next: S) => void) => void): void;
+    }
+
+
+    class Dispatcher<S> {
+        protected pipe: StatePipe<S>;
+
+        constructor(pipe: StatePipe<S>);
+    }
+
+
+    abstract class Store<S, P, D extends Dispatcher<S>> {
         constructor();
 
-        add(callback: (arg: T) => void): void;
-        remove(callback: (arg: T) => void): void;
-        fire(arg: T): void;
+        protected getStatePipe(): StatePipe<S>;
+        protected setCondition(state: S, dispatcher: D);
 
-        clear(): void;
+        public abstract toProps(state: S, dispatcher: D): P;
+
+        public onUpdate(callback: (next: P) => void): () => void;
+        public init(): void;
     }
 
-    interface Action {
-        type?: string;
-    }
-
-    interface Dispatcher {
-        (action: Action): void;
-    }
-
-
-    interface Props {
-        dispatcher?: Dispatcher;
-    }
-
-
-    abstract class Store<P extends Props> {
-        constructor(defalutProps: P);
-
-        onUpdate(callback: (next: P) => void);
-        init();
-
-        abstract setDispatcher(current: P, dispatcher: Dispatcher): void;
-
-        bindAction<A extends Action>(type: string, callback: (action: A, current: P, update: (next: P) => void) => void);
-    }
-
-
-
-    function bind<P extends Props>(element: HTMLElement, store: Store<P>, createElement: (props: P) => __React.ReactElement<P>);
+    function bind<S, P, D extends Dispatcher<S>>(element: HTMLElement, store: Store<S, P, D>, createElement: (props: P) => __React.ReactElement<P>);
 }

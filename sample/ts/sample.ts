@@ -3,7 +3,7 @@
 import ReactDOM = require("react-dom");
 import React = require("react");
 
-import { ActionEvent, bind, Dispatcher, StatePipe, Store } from "../../src/next2/tarai";
+import { ActionEvent, bind, Dispatcher, StatePipe, Store } from "../../src/tarai";
 import { Spin } from "./spin";
 
 export interface SpinState {
