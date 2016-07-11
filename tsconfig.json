@@ -13,6 +13,9 @@
         "!./src/**/*.d.ts",
         "./test/**/*.ts",
         "!./test/**/*.d.ts",
+        "./sample/ts/*.ts",
+        "./sample/ts/*.tsx",
+        "!./sample/ts/*.d.ts",
         "!./node_modules/**/*.ts",
         "!./typings/**/*.ts"
     ],
@@ -26,12 +29,11 @@
         "./src/binder.ts",
         "./src/callback.ts",
         "./src/dispatcher.ts",
-        "./src/property.ts",
         "./src/store.ts",
         "./src/tarai.ts",
-        "./src/utils.ts",
-        "./test/sample/store.ts",
-        "./test/test.ts"
+        "./test/test.ts",
+        "./sample/ts/sample.ts",
+        "./sample/ts/spin.tsx"
     ],
     "compileOnSave": true,
     "buildOnSave": true,

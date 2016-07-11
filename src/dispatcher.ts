@@ -1,13 +1,11 @@
-import { Action } from "./action";
+import { StatePipe, ActionEvent } from "./action";
 
 
-export interface Dispatcher {
-    (action: Action): void;
-}
 
+export class Dispatcher<S> {
+    protected pipe: StatePipe<S>;
 
-export function createDispatcher(context: any, dispatched: (action: Action) => void): Dispatcher {
-    return (action: Action) => {
-        dispatched.apply(context, [action]);
-    };
+    constructor(pipe: StatePipe<S>) {
+        this.pipe = pipe;
+    }
 }

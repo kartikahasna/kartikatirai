@@ -1,74 +1,51 @@
 /// <reference path="../typings/object-assign/object-assign.d.ts" />
-import objectAssign = require('object-assign');
+import objectAssign = require("object-assign");
 
+import { StatePipe } from "./action";
 import { Callback } from "./callback";
-import { Action } from "./action";
-import { Dispatcher, createDispatcher } from "./dispatcher";
-import { Props } from "./property";
-
-import { createContextBindedCallback } from "./utils";
-
-
-export abstract class Store<P extends Props> {
-    private _props: P;
-    private _dispatcher: (action: Action) => void;
-    private _update: (next: P) => void;
-
-    private _callback: Callback<P>;
-    private _actions: {[key: string]: (action: Action, current: P, update: (next: P) => void) => void};
+import { Dispatcher } from "./dispatcher";
 
 
 
-    constructor(defalutProps: P) {
-        this._update = createContextBindedCallback<P>(this, (next: P) => {
-            this._props = objectAssign({}, this._props, next); // Object.assign
-            this.setDispatcher(this._props, this._dispatcher);
+export abstract class Store<S, P, D extends Dispatcher<S>> {
+    private _state: S;
+    private _dispatcher: D;
+    private _onUpdate: Callback<P>;
 
-            this._callback.fire(this._props);
-        });
+    private _updateState(next: S) {
+        this._state = objectAssign({}, this._state, next);
 
-        this._dispatcher = createContextBindedCallback<Action>(this, (action: Action) => {
-            const callback = this._actions[action.type];
-
-            if (callback) {
-                callback.apply(this, [action, this._props, this._update]);
-            } else {
-                console.error("unknown action type!! : " + action.type);
-            }
-        });
-
-        this._callback = new Callback<P>();
-
-        this._props = defalutProps;
-
-        this.setDispatcher(this._props, this._dispatcher);
-
-        this._actions = {};
+        const props = this.toProps(this._state, this._dispatcher);
+        this._onUpdate.fire(props);
     }
 
-    abstract setDispatcher(current: P, dispatcher: Dispatcher): void;
-
-    onUpdate(callback: (next: P) => void) {
-        this._callback.add(callback);
+    constructor() {
+        this._onUpdate = new Callback<P>();
     }
 
+    protected getStatePipe(): StatePipe<S> {
+        const that = this;
 
-    init() {
-        this._callback.fire(this._props);
+        return {
+            getState: () => { return that._state; },
+            setState: (next: S) => { that._updateState.apply(that, [next]); },
+        };
     }
 
+    protected setCondition(state: S, dispatcher: D) {
+        this._state = state;
+        this._dispatcher = dispatcher;
+    }
+
+    public abstract toProps(state: S, dispatcher: D): P;
 
 
-    bindAction<A extends Action>(type: string, callback: (action: A, current: P, update: (next: P) => void) => void) {
-        if (!this._actions) {
-            this._actions = {};
-        }
+    public onUpdate(callback: (next: P) => void): () => void {
+        return this._onUpdate.add(this, callback);
+    }
 
-        if (this._actions[type]) {
-            console.error("already binded Action type : " + type);
-            return;
-        }
-
-        this._actions[type] = callback;
+    public init(): void {
+        const props = this.toProps(this._state, this._dispatcher);
+        this._onUpdate.fire(props);
     }
 }
