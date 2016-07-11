@@ -1,4 +1,4 @@
-// Type definitions for tarai v0.0.6
+// Type definitions for tarai v0.0.7
 // Project: https://github.com/inabe49/tarai
 // Definitions by: inabe49 <https://github.com/inabe49>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
