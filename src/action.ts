@@ -6,27 +6,19 @@ export interface StatePipe<S> {
 }
 
 
-export class ActionEvent<S, T> {
-    private _pipe: StatePipe<S>;
-    private _context: any;
-    private _callback: (arg: T, current: S, update: (next: S) => void) => void;
+export class ActionEvent<T> {
+    private _callback: Callback<T>;
 
-    constructor(pipe: StatePipe<S>) {
-        this._pipe = pipe;
+    constructor() {
+        this._callback = new Callback<T>();
     }
 
     public fire(arg: T): void {
-        // bind された callback を叩く
-        if (this._callback) {
-            this._callback.apply(this._context, [arg, this._pipe.getState(), this._pipe.setState]);
-        } else {
-            console.error("ActionEvent not binded");
-        }
+        this._callback.fire(arg);
     }
 
 
-    public bind(context: any, callback: (arg: T, current: S, update: (next: S) => void) => void): void {
-        this._context = context;
-        this._callback = callback;
+    public bind(context: any, callback: (arg: T) => void): () => void {
+        return this._callback.add(context, callback);
     }
 }

@@ -12,32 +12,29 @@ declare module "tarai" {
         setState(next: S): void;
     }
 
-    class ActionEvent<S, T> {
-        constructor(pipe: StatePipe<S>);
-
-        public fire(arg: T): void;
-        public bind(context: any, callback: (arg: T, current: S, update: (next: S) => void) => void): void;
-    }
-
-
-    class Dispatcher<S> {
-        protected pipe: StatePipe<S>;
-
-        constructor(pipe: StatePipe<S>);
-    }
-
-
-    abstract class Store<S, P, D extends Dispatcher<S>> {
+    class ActionEvent<T> {
         constructor();
 
-        protected getStatePipe(): StatePipe<S>;
-        protected setCondition(state: S, dispatcher: D);
+        public fire(arg: T): void;
+        public bind(context: any, callback: (arg: T) => void): () => void;
+    }
 
-        public abstract toProps(state: S, dispatcher: D): P;
+
+    class Dispatcher {
+        constructor();
+    }
+
+
+    abstract class Store<S, P> {
+        constructor(state: S);
+
+        protected getStatePipe(): StatePipe<S>;
+
+        public abstract toProps(state: S): P;
 
         public onUpdate(callback: (next: P) => void): () => void;
         public init(): void;
     }
 
-    function bind<S, P, D extends Dispatcher<S>>(element: HTMLElement, store: Store<S, P, D>, createElement: (props: P) => __React.ReactElement<P>);
+    function bind<S, P>(element: HTMLElement, store: Store<S, P>, createElement: (props: P) => __React.ReactElement<P>);
 }

@@ -15,16 +15,16 @@ export interface SpinProps extends SpinState {
 }
 
 
-export class SpinDispatcher extends Dispatcher<SpinState> {
-    constructor(pipe: StatePipe<SpinState>) {
-        super(pipe);
+export class SpinDispatcher extends Dispatcher {
+    constructor() {
+        super();
 
-        this.onStartSpin = new ActionEvent<SpinState, {}>(this.pipe);
-        this.onStopSpin = new ActionEvent<SpinState, {}>(this.pipe);
+        this.onStartSpin = new ActionEvent<{}>();
+        this.onStopSpin = new ActionEvent<{}>();
     }
 
-    public onStartSpin: ActionEvent<SpinState, {}>;
-    public onStopSpin: ActionEvent<SpinState, {}>;
+    public onStartSpin: ActionEvent<{}>;
+    public onStopSpin: ActionEvent<{}>;
 
 
     public startSpin() {
@@ -37,37 +37,40 @@ export class SpinDispatcher extends Dispatcher<SpinState> {
 }
 
 
-export class SpinStore extends Store<SpinState, SpinProps, SpinDispatcher> {
-    constructor(isSpin: boolean) {
-        super();
+export class SpinStore extends Store<SpinState, SpinProps> {
+    private _dispatcher: SpinDispatcher;
 
+    constructor(isSpin: boolean) {
         const state: SpinState = {
             isSpin: isSpin,
         };
 
-        const dispatcher: SpinDispatcher = new SpinDispatcher(this.getStatePipe());
+        super(state);
 
-        this.setCondition(state, dispatcher);
-
-        dispatcher.onStartSpin.bind(this, this.onStartSpin);
-        dispatcher.onStopSpin.bind(this, this.onStopSpin);
+        this._dispatcher = new SpinDispatcher();
+        this._dispatcher.onStartSpin.bind(this, this.onStartSpin);
+        this._dispatcher.onStopSpin.bind(this, this.onStopSpin);
     }
 
-    toProps(state: SpinState, dispatcher: SpinDispatcher): SpinProps {
+    toProps(state: SpinState): SpinProps {
         return {
             isSpin: state.isSpin,
-            dispatcher: dispatcher,
+            dispatcher: this._dispatcher,
         };
     }
 
-    public onStopSpin(action: {}, current: SpinState, update: (next: SpinState) => void) {
-        update({
+    public onStopSpin(action: {}) {
+        const pipe = this.getStatePipe();
+
+        pipe.setState({
             isSpin: false,
         });
     }
 
-    public onStartSpin(action: {}, current: SpinState, update: (next: SpinState) => void) {
-        update({
+    public onStartSpin(action: {}) {
+        const pipe = this.getStatePipe();
+
+        pipe.setState({
             isSpin: true,
         });
     }
