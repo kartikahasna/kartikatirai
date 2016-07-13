@@ -8,7 +8,7 @@ import { Dispatcher } from "./dispatcher";
 import { Store } from "./store";
 
 
-export function bind<S, P, D extends Dispatcher<S>>(element: HTMLElement, store: Store<S, P, D>, createElement: (props: P) => React.ReactElement<P>) {
+export function bind<S, P>(element: HTMLElement, store: Store<S, P>, createElement: (props: P) => React.ReactElement<P>) {
     store.onUpdate((next: P) => {
         ReactDOM.render(
             createElement(next),
