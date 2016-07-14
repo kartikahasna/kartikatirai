@@ -32,6 +32,14 @@ export abstract class Store<S, P> {
         };
     }
 
+    protected getState(): S {
+        return this._state;
+    }
+
+    protected setState(next: S): void {
+        this._updateState(next);
+    }
+
     public abstract toProps(state: S): P;
 
 

@@ -1,4 +1,4 @@
-/// <reference path="../../typings/react/react.d.ts" />
+/// <reference path="../../../typings/react/react.d.ts" />
 import React = require("react");
 
 import { SpinDispatcher, SpinProps } from "./sample";

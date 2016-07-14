@@ -1,9 +1,9 @@
-/// <reference path="../../typings/react/react.d.ts" />
-/// <reference path="../../typings/react/react-dom.d.ts" />
+/// <reference path="../../../typings/react/react.d.ts" />
+/// <reference path="../../../typings/react/react-dom.d.ts" />
 import ReactDOM = require("react-dom");
 import React = require("react");
 
-import { ActionEvent, bind, Dispatcher, StatePipe, Store } from "../../src/tarai";
+import { ActionEvent, bind, Dispatcher, StatePipe, Store } from "../../../src/tarai";
 import { Spin } from "./spin";
 
 export interface SpinState {

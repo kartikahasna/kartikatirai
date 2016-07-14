@@ -29,6 +29,8 @@ declare module "tarai" {
         constructor(state: S);
 
         protected getStatePipe(): StatePipe<S>;
+        protected getState(): S;
+        protected setState(next: S): void;
 
         public abstract toProps(state: S): P;
 
