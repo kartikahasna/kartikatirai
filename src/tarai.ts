@@ -3,6 +3,9 @@ import { bind } from "./binder";
 import { Dispatcher } from "./dispatcher";
 import { Store } from "./store";
 
+import { Connector, SubComponentProps } from "./sub/interface";
+import { SubStore } from "./sub/store";
+import { SubComponent } from "./sub/component";
 
 export {
     ActionEvent,
@@ -10,4 +13,10 @@ export {
     Dispatcher,
     StatePipe,
     Store,
+
+
+    Connector,
+    SubComponentProps,
+    SubStore,
+    SubComponent,
 };
