@@ -9,6 +9,7 @@ import { Connector } from "./interface";
 
 export abstract class SubStore<C extends Connector, IS, VS> {
     private _innerState: IS;
+    private _connector: C;
     private _connectorUnbinder: () => void;
     private _onUpdate: Callback<VS>;
 
@@ -20,7 +21,7 @@ export abstract class SubStore<C extends Connector, IS, VS> {
     }
 
 
-    public constructor(innerState: IS) {
+    constructor(innerState: IS) {
         this._innerState = innerState;
         this._onUpdate = new Callback<VS>();
     }
@@ -53,12 +54,17 @@ export abstract class SubStore<C extends Connector, IS, VS> {
         return this.toViewSate(this.getInnerState());
     }
 
+    public getConnector(): C {
+        return this._connector;
+    }
+
     public injectConnector(connector: C) {
         if (this._connectorUnbinder) {
             this._connectorUnbinder();
         }
 
         this._connectorUnbinder = this.onInjectConnector(connector);
+        this._connector = connector;
     }
 
     public abstract toViewSate(inner: IS): VS;
