@@ -1,4 +1,4 @@
-/// <reference path="../../typings/react/react.d.ts" />
+/// <reference path="../../../typings/react/react.d.ts" />
 import React = require("react");
 
 import { SpinDispatcher, SpinProps } from "./sample";
@@ -26,13 +26,13 @@ export class Spin extends React.Component<SpinProps, {}> {
                 <button onClick={(e: React.MouseEvent) => {
                     e.preventDefault();
 
-                    that.props.dispatcher.stopSpin();
+                    that.props.dispatcher.stopSpin({});
                 }}>Stop</button>
 
                 <button onClick={(e: React.MouseEvent) => {
                     e.preventDefault();
 
-                    that.props.dispatcher.startSpin();
+                    that.props.dispatcher.startSpin({});
                 }}>Start</button>
             </div>
         );

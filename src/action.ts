@@ -1,32 +1,43 @@
-import { Callback } from "./callback";
+export interface Action<T> {
+    (arg: T): void;
+    (context: any, callback: (arg: T) => void): void;
+}
 
-export interface StatePipe<S> {
-    getState(): S;
-    setState(next: S): void;
+interface CallbackItem<T> {
+    context: any;
+    callback: (arg: T) => void;
 }
 
 
-export class ActionEvent<S, T> {
-    private _pipe: StatePipe<S>;
-    private _context: any;
-    private _callback: (arg: T, current: S, update: (next: S) => void) => void;
+export function createAction<T>(): Action<T> {
+    const callbacks: CallbackItem<T>[] = [];
 
-    constructor(pipe: StatePipe<S>) {
-        this._pipe = pipe;
-    }
+    return (arg1, arg2?) => {
+        if (arg2) {
+            // bind callback
+            const callback: (arg: T) => void = <(arg: T) => void>arg2;
+            const context: any = arg1;
+            const item: CallbackItem<T> = {
+                context: context,
+                callback: callback,
+            };
 
-    public fire(arg: T): void {
-        // bind された callback を叩く
-        if (this._callback) {
-            this._callback.apply(this._context, [arg, this._pipe.getState(), this._pipe.setState]);
+            callbacks.push(item);
+
+            return () => {
+                for (let i = 0; i < callbacks.length; i++) {
+                    if (callbacks[i] === item) {
+                        callbacks.splice(i, 1);
+                    }
+                }
+            }
         } else {
-            console.error("ActionEvent not binded");
+            // fire
+            const arg: T = <T>arg1;
+
+            for (let i = 0; i < callbacks.length; i++) {
+                callbacks[i].callback.apply(callbacks[i].context, [arg]);
+            }
         }
-    }
-
-
-    public bind(context: any, callback: (arg: T, current: S, update: (next: S) => void) => void): void {
-        this._context = context;
-        this._callback = callback;
-    }
+    };
 }

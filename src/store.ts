@@ -1,26 +1,30 @@
 /// <reference path="../typings/object-assign/object-assign.d.ts" />
 import objectAssign = require("object-assign");
 
-import { StatePipe } from "./action";
 import { Callback } from "./callback";
 import { Dispatcher } from "./dispatcher";
 
+export interface StatePipe<S> {
+    getState(): S;
+    setState(next: S): void;
+}
 
 
-export abstract class Store<S, P, D extends Dispatcher<S>> {
+
+export abstract class Store<S, P> {
     private _state: S;
-    private _dispatcher: D;
     private _onUpdate: Callback<P>;
 
     private _updateState(next: S) {
         this._state = objectAssign({}, this._state, next);
 
-        const props = this.toProps(this._state, this._dispatcher);
+        const props = this.toProps(this._state);
         this._onUpdate.fire(props);
     }
 
-    constructor() {
+    constructor(state: S) {
         this._onUpdate = new Callback<P>();
+        this._state = state;
     }
 
     protected getStatePipe(): StatePipe<S> {
@@ -32,12 +36,15 @@ export abstract class Store<S, P, D extends Dispatcher<S>> {
         };
     }
 
-    protected setCondition(state: S, dispatcher: D) {
-        this._state = state;
-        this._dispatcher = dispatcher;
+    protected getState(): S {
+        return this._state;
     }
 
-    public abstract toProps(state: S, dispatcher: D): P;
+    protected setState(next: S): void {
+        this._updateState(next);
+    }
+
+    public abstract toProps(state: S): P;
 
 
     public onUpdate(callback: (next: P) => void): () => void {
@@ -45,7 +52,8 @@ export abstract class Store<S, P, D extends Dispatcher<S>> {
     }
 
     public init(): void {
-        const props = this.toProps(this._state, this._dispatcher);
+        const props = this.toProps(this._state);
+
         this._onUpdate.fire(props);
     }
 }

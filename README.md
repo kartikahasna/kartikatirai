@@ -1,6 +1,9 @@
 # tarai
 Library for Typed Flux
 
+[![Build Status](https://travis-ci.org/inabe49/tarai.svg?branch=master)](https://travis-ci.org/inabe49/tarai)
+[![npm version](https://img.shields.io/npm/v/tarai.svg)](https://www.npmjs.com/package/tarai)
+
 # Table of Contents
 
 * [Requirements](#requirements)
