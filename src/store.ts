@@ -1,9 +1,13 @@
 /// <reference path="../typings/object-assign/object-assign.d.ts" />
 import objectAssign = require("object-assign");
 
-import { StatePipe } from "./action";
 import { Callback } from "./callback";
 import { Dispatcher } from "./dispatcher";
+
+export interface StatePipe<S> {
+    getState(): S;
+    setState(next: S): void;
+}
 
 
 

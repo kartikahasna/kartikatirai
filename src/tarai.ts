@@ -1,14 +1,16 @@
-import { ActionEvent, StatePipe } from "./action";
+import { Action, createAction } from "./action";
 import { bind } from "./binder";
 import { Dispatcher } from "./dispatcher";
-import { Store } from "./store";
+import { Store, StatePipe } from "./store";
 
 import { Connector, SubComponentProps } from "./sub/interface";
 import { SubStore } from "./sub/store";
 import { SubComponent } from "./sub/component";
 
 export {
-    ActionEvent,
+    Action,
+    createAction,
+
     bind,
     Dispatcher,
     StatePipe,

@@ -2,23 +2,30 @@
 import React = require("react");
 
 import { TodoTitleEditorProps } from "../../props/form-controls/todo-title-editor";
+import { TodoTitleEditorConnector } from "../../connectors/form-controls/todo-title-editor";
+import { SubComponent, SubComponentProps } from "../../../../../src/tarai";
+
+import { TodoTitleEditorState, createTodoTitleEditorState, updateTodoTitleEditorState } from "../../state/form-controls/todo-title-editor";
+import { TodoTitleEditorDispatcher } from "../../dispatchers/form-controls/todo-title-editor";
+import { TodoTitleEditorStore } from "../../stores/form-controls/todo-title-editor";
 
 
-export class TodoTitleEditorControl extends React.Component<TodoTitleEditorProps, {}> {
-    constructor(prop: TodoTitleEditorProps) {
-        super(prop);
+export class TodoTitleEditorControl extends SubComponent<TodoTitleEditorConnector, TodoTitleEditorState, TodoTitleEditorProps, TodoTitleEditorStore> {
+    constructor(prop: SubComponentProps<TodoTitleEditorConnector>) {
+        const store: TodoTitleEditorStore = new TodoTitleEditorStore();
+        super(prop, store);
     }
 
 
     render() {
         const that: TodoTitleEditorControl = this;
-        const dispatcher = this.props.dispatcher;
+        const dispatcher = this.state.dispatcher;
 
         return (
-            <div className={this.props.isValid ? "form-group" : "form-group has-error"}>
+            <div className={this.state.isValid ? "form-group" : "form-group has-error"}>
                 <label className="col-sm-2 control-label">Title</label>
                 <div className="col-sm-10">
-                    <input type="text" className="form-control" value={this.props.title}
+                    <input type="text" className="form-control" value={this.state.title}
                            onChange={(e: React.FormEvent) => {
                                dispatcher.updateTitle((e.target as HTMLInputElement).value);
                            }}
@@ -29,7 +36,7 @@ export class TodoTitleEditorControl extends React.Component<TodoTitleEditorProps
                                dispatcher.blur();
                            }}/>
                     {(() => {
-                        if (!that.props.isValid) {
+                        if (!that.state.isValid) {
                             return (
                                 <span className="help-block">
                                     ユーザー名の形式が不正です。

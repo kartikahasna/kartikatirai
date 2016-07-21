@@ -41,7 +41,7 @@ export class TodoEditorControl extends React.Component<TodoEditorProps, {}> {
         return (
             <form className="form-horizontal">
 
-
+                <TodoTitleEditorControl connector={this.props.titleConnector}/>
 
 
                 <div className="form-group">

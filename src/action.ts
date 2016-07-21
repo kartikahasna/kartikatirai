@@ -1,24 +1,43 @@
-import { Callback } from "./callback";
+export interface Action<T> {
+    (arg: T): void;
+    (context: any, callback: (arg: T) => void): void;
+}
 
-export interface StatePipe<S> {
-    getState(): S;
-    setState(next: S): void;
+interface CallbackItem<T> {
+    context: any;
+    callback: (arg: T) => void;
 }
 
 
-export class ActionEvent<T> {
-    private _callback: Callback<T>;
+export function createAction<T>(): Action<T> {
+    const callbacks: CallbackItem<T>[] = [];
 
-    constructor() {
-        this._callback = new Callback<T>();
-    }
+    return (arg1, arg2?) => {
+        if (arg2) {
+            // bind callback
+            const callback: (arg: T) => void = <(arg: T) => void>arg2;
+            const context: any = arg1;
+            const item: CallbackItem<T> = {
+                context: context,
+                callback: callback,
+            };
 
-    public fire(arg: T): void {
-        this._callback.fire(arg);
-    }
+            callbacks.push(item);
 
+            return () => {
+                for (let i = 0; i < callbacks.length; i++) {
+                    if (callbacks[i] === item) {
+                        callbacks.splice(i, 1);
+                    }
+                }
+            }
+        } else {
+            // fire
+            const arg: T = <T>arg1;
 
-    public bind(context: any, callback: (arg: T) => void): () => void {
-        return this._callback.add(context, callback);
-    }
+            for (let i = 0; i < callbacks.length; i++) {
+                callbacks[i].callback.apply(callbacks[i].context, [arg]);
+            }
+        }
+    };
 }

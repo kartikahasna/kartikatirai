@@ -2,7 +2,7 @@
 import React = require("react");
 
 import { Callback } from "../callback";
-import { StatePipe } from "../action";
+import { StatePipe } from "../store";
 
 import { Connector, SubComponentProps } from "./interface";
 import { SubStore } from "./store";

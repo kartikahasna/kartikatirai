@@ -1,4 +1,4 @@
-import { ActionEvent, Connector, SubStore } from "../../../../../src/tarai";
+import { Action, createAction, Connector, SubStore } from "../../../../../src/tarai";
 
 import { TodoTitleEditorState, createTodoTitleEditorState, updateTodoTitleEditorState } from "../../state/form-controls/todo-title-editor";
 import { TodoTitleEditorDispatcher } from "../../dispatchers/form-controls/todo-title-editor";
@@ -36,10 +36,11 @@ import { TodoTitleEditorProps } from "../../props/form-controls/todo-title-edito
 
 export class TodoTitleEditorConnector implements Connector {
     constructor() {
-
+        this.validate = createAction<{}>();
+        this.change = createAction<{value: string, isValid: boolean}>();
     }
 
-    public onValidate: ActionEvent<{}>;
+    public validate: Action<{}>;
 
-    public onChange: ActionEvent<{ value: string, isValid: boolean }>;
+    public change: Action<{ value: string, isValid: boolean }>;
 }

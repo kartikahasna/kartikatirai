@@ -2,10 +2,8 @@
 import objectAssign = require("object-assign");
 
 import { Callback } from "../callback";
-import { StatePipe } from "../action";
-
 import { Connector } from "./interface";
-
+import { StatePipe } from "../store";
 
 export abstract class SubStore<C extends Connector, IS, VS> {
     private _innerState: IS;

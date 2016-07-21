@@ -3,7 +3,7 @@
 import ReactDOM = require("react-dom");
 import React = require("react");
 
-import { ActionEvent, bind, Dispatcher, StatePipe, Store } from "../../../src/tarai";
+import { Action, createAction, bind, Dispatcher, StatePipe, Store } from "../../../src/tarai";
 import { Spin } from "./spin";
 
 export interface SpinState {
@@ -19,20 +19,20 @@ export class SpinDispatcher extends Dispatcher {
     constructor() {
         super();
 
-        this.onStartSpin = new ActionEvent<{}>();
-        this.onStopSpin = new ActionEvent<{}>();
+        this.onStartSpin = createAction();
+        this.onStopSpin = createAction();
     }
 
-    public onStartSpin: ActionEvent<{}>;
-    public onStopSpin: ActionEvent<{}>;
+    public onStartSpin: Action<{}>;
+    public onStopSpin: Action<{}>;
 
 
     public startSpin() {
-        this.onStartSpin.fire({});
+        this.onStartSpin({});
     }
 
     public stopSpin() {
-        this.onStopSpin.fire({});
+        this.onStopSpin({});
     }
 }
 

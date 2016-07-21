@@ -1,4 +1,4 @@
-import { ActionEvent, Dispatcher } from "../../../../../src/tarai";
+import { Action, createAction, Dispatcher } from "../../../../../src/tarai";
 
 
 
@@ -6,24 +6,24 @@ export class TodoTitleEditorDispatcher extends Dispatcher {
     constructor() {
         super();
 
-        this.onUpdateTitle = new ActionEvent<string>();
-        this.onFocus = new ActionEvent<{}>();
-        this.onBlur = new ActionEvent<{}>();
+        this.onUpdateTitle = createAction<string>();
+        this.onFocus = createAction<{}>();
+        this.onBlur = createAction<{}>();
     }
 
-    public onUpdateTitle: ActionEvent<string>;
-    public onFocus: ActionEvent<{}>;
-    public onBlur: ActionEvent<{}>;
+    public onUpdateTitle: Action<string>;
+    public onFocus: Action<{}>;
+    public onBlur: Action<{}>;
 
     public updateTitle(next: string) {
-        this.onUpdateTitle.fire(next);
+        this.onUpdateTitle(next);
     }
 
     public focus() {
-        this.onFocus.fire({});
+        this.onFocus({});
     }
 
     public blur() {
-        this.onBlur.fire({});
+        this.onBlur({});
     }
 }
