@@ -1,11 +1,13 @@
-import { ActionEvent, StatePipe } from "./action";
+import { Action, createAction } from "./action";
 import { bind } from "./binder";
 import { Dispatcher } from "./dispatcher";
-import { Store } from "./store";
+import { Store, StatePipe } from "./store";
 
 
 export {
-    ActionEvent,
+    Action,
+    createAction,
+
     bind,
     Dispatcher,
     StatePipe,

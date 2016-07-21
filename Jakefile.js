@@ -1,5 +1,6 @@
 desc("build ts to js");
 task("build", function() {
     jake.exec("tsc");
-    jake.exec("browserify sample/ts/sample.js > sample/dist/index.js");
+    jake.exec("browserify sample/01_spin/ts/sample.js > sample/01_spin/dist/index.js");
+    jake.exec("browserify sample/02_sub_store/ts/page.js > sample/02_sub_store/dist/index.js");
 });

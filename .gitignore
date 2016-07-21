@@ -8,11 +8,16 @@ test/**/*.js.map
 test/**/*.d.ts
 
 
-sample/ts/*.js
-sample/ts/*.js.map
-sample/ts/*.d.ts
-sample/dist/*.js
+sample/01_spin/ts/**/*.js
+sample/01_spin/ts/**/*.js.map
+sample/01_spin/ts/**/*.d.ts
+sample/01_spin/dist/*.js
 
+
+sample/02_sub_store/ts/**/*.js
+sample/02_sub_store/ts/**/*.js.map
+sample/02_sub_store/ts/**/*.d.ts
+sample/02_sub_store/dist/*.js
 
 
 

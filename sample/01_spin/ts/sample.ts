@@ -1,9 +1,9 @@
-/// <reference path="../../typings/react/react.d.ts" />
-/// <reference path="../../typings/react/react-dom.d.ts" />
+/// <reference path="../../../typings/react/react.d.ts" />
+/// <reference path="../../../typings/react/react-dom.d.ts" />
 import ReactDOM = require("react-dom");
 import React = require("react");
 
-import { ActionEvent, bind, Dispatcher, StatePipe, Store } from "../../src/tarai";
+import { Action, createAction, bind, Dispatcher, StatePipe, Store } from "../../../src/tarai";
 import { Spin } from "./spin";
 
 export interface SpinState {
@@ -19,21 +19,12 @@ export class SpinDispatcher extends Dispatcher {
     constructor() {
         super();
 
-        this.onStartSpin = new ActionEvent<{}>();
-        this.onStopSpin = new ActionEvent<{}>();
+        this.startSpin = createAction();
+        this.stopSpin = createAction();
     }
 
-    public onStartSpin: ActionEvent<{}>;
-    public onStopSpin: ActionEvent<{}>;
-
-
-    public startSpin() {
-        this.onStartSpin.fire({});
-    }
-
-    public stopSpin() {
-        this.onStopSpin.fire({});
-    }
+    public startSpin: Action<{}>;
+    public stopSpin: Action<{}>;
 }
 
 
@@ -48,8 +39,8 @@ export class SpinStore extends Store<SpinState, SpinProps> {
         super(state);
 
         this._dispatcher = new SpinDispatcher();
-        this._dispatcher.onStartSpin.bind(this, this.onStartSpin);
-        this._dispatcher.onStopSpin.bind(this, this.onStopSpin);
+        this._dispatcher.startSpin(this, this.onStartSpin);
+        this._dispatcher.stopSpin(this, this.onStopSpin);
     }
 
     toProps(state: SpinState): SpinProps {

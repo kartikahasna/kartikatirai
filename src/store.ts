@@ -1,9 +1,13 @@
 /// <reference path="../typings/object-assign/object-assign.d.ts" />
 import objectAssign = require("object-assign");
 
-import { StatePipe } from "./action";
 import { Callback } from "./callback";
 import { Dispatcher } from "./dispatcher";
+
+export interface StatePipe<S> {
+    getState(): S;
+    setState(next: S): void;
+}
 
 
 
@@ -30,6 +34,14 @@ export abstract class Store<S, P> {
             getState: () => { return that._state; },
             setState: (next: S) => { that._updateState.apply(that, [next]); },
         };
+    }
+
+    protected getState(): S {
+        return this._state;
+    }
+
+    protected setState(next: S): void {
+        this._updateState(next);
     }
 
     public abstract toProps(state: S): P;

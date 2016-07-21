@@ -14,7 +14,7 @@ trim_trailing_whitespace = false
 [Makefile]
 indent_style = tab
 
-[*.{less,css,scala,html}]
+[*.{less,css,scala,html,json}]
 indent_size = 2
 
 
@@ -22,5 +22,5 @@ indent_size = 2
 indent_size = 2
 
 
-[*.{ts,js,json}]
+[*.{ts,js}]
 indent_size = 4
