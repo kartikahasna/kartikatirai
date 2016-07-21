@@ -1,10 +1,11 @@
 {
   "name": "tarai",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Library for Typed Flux",
   "main": "src/tarai.js",
   "scripts": {
-    "test": "mocha --compilers ts:espower-typescript/guess test/**/*.ts",
+    "pretest": "tsc",
+    "test": "mocha",
     "prepublish": "tsc"
   },
   "repository": {

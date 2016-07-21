@@ -19,21 +19,12 @@ export class SpinDispatcher extends Dispatcher {
     constructor() {
         super();
 
-        this.onStartSpin = createAction();
-        this.onStopSpin = createAction();
+        this.startSpin = createAction();
+        this.stopSpin = createAction();
     }
 
-    public onStartSpin: Action<{}>;
-    public onStopSpin: Action<{}>;
-
-
-    public startSpin() {
-        this.onStartSpin({});
-    }
-
-    public stopSpin() {
-        this.onStopSpin({});
-    }
+    public startSpin: Action<{}>;
+    public stopSpin: Action<{}>;
 }
 
 
@@ -48,8 +39,8 @@ export class SpinStore extends Store<SpinState, SpinProps> {
         super(state);
 
         this._dispatcher = new SpinDispatcher();
-        this._dispatcher.onStartSpin.bind(this, this.onStartSpin);
-        this._dispatcher.onStopSpin.bind(this, this.onStopSpin);
+        this._dispatcher.startSpin(this, this.onStartSpin);
+        this._dispatcher.stopSpin(this, this.onStopSpin);
     }
 
     toProps(state: SpinState): SpinProps {

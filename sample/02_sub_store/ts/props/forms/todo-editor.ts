@@ -1,11 +1,29 @@
-import { TodoEditorDispatcher } from "../../dispatchers/forms/todo-editor";
-import { TodoEditorState } from "../../state/forms/todo-editor";
+/// <reference path="../../../../../typings/react/react.d.ts"/>
+import React = require("react");
 
-import { TodoTitleEditorConnector } from "../../connectors/form-controls/todo-title-editor";
+import { Action, createAction, Dispatcher } from "../../../../../src/tarai";
+
+import { TodoTitleEditorProps } from "../../props/form-controls/todo-title-editor";
 
 
-export interface TodoEditorProps extends TodoEditorState {
+export class TodoEditorDispatcher extends Dispatcher {
+    constructor() {
+        super();
+
+        this.deleteTodo = createAction<{}>();
+        this.updateTodo = createAction<{}>();
+    }
+
+    public deleteTodo: Action<{}>;
+    public updateTodo: Action<{}>;
+}
+
+
+export interface TodoEditorProps {
     dispatcher?: TodoEditorDispatcher;
 
-    titleConnector?: TodoTitleEditorConnector;
+    title: TodoTitleEditorProps;
+
+    isDeleting: boolean;
+    isUpdating: boolean;
 }

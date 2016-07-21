@@ -1,7 +1,9 @@
 import { TodoItem } from "../../model";
+import { TodoTitleEditorState, createTodoTitleEditorState } from "../form-controls/todo-title-editor";
+
 
 export interface TodoEditorState {
-    title?: string;
+    title?: TodoTitleEditorState;
 
     isDeleting?: boolean;
     isUpdating?: boolean;
@@ -10,7 +12,7 @@ export interface TodoEditorState {
 
 export function createTodoEditorState(todo: TodoItem): TodoEditorState {
     return {
-        title: todo.title,
+        title: createTodoTitleEditorState(todo.title, false),
 
         isDeleting: false,
         isUpdating: false,

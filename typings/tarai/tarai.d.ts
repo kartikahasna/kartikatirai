@@ -1,4 +1,4 @@
-// Type definitions for tarai v0.0.8
+// Type definitions for tarai v0.0.9
 // Project: https://github.com/inabe49/tarai
 // Definitions by: inabe49 <https://github.com/inabe49>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,12 +12,12 @@ declare module "tarai" {
         setState(next: S): void;
     }
 
-    class ActionEvent<T> {
-        constructor();
-
-        public fire(arg: T): void;
-        public bind(context: any, callback: (arg: T) => void): () => void;
+    interface Action<T> {
+        (arg: T): void;
+        (context: any, callback: (arg: T) => void): void;
     }
+
+    function createAction<T>(): Action<T>;
 
 
     class Dispatcher {

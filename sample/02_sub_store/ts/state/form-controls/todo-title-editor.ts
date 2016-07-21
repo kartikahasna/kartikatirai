@@ -1,30 +1,18 @@
 
 
-
 export interface TodoTitleEditorState {
     title?: string;
-
     isValid?: boolean;
 
-    hasFocused?: boolean;
+    shouldValidate?: boolean;
 }
 
-
-export function createTodoTitleEditorState(title: string): TodoTitleEditorState {
+export function createTodoTitleEditorState(title: string, shouldValidate: boolean): TodoTitleEditorState {
     return {
         title: title,
-        isValid: !!title,
 
-        hasFocused: false,
-    };
-}
+        isValid: shouldValidate ? (!!title) : true,
 
-
-export function updateTodoTitleEditorState(prev: TodoTitleEditorState, title: string): TodoTitleEditorState {
-    return {
-        title: title,
-        isValid: !!title,
-
-        hasFocused: prev.hasFocused,
+        shouldValidate: shouldValidate,
     };
 }

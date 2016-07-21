@@ -1,43 +1,39 @@
 import { Store } from "../../../../../src/tarai";
 
+import { TodoEditorDispatcher, TodoEditorProps } from "../../props/forms/todo-editor";
+import { TodoTitleEditorDispatcher, TodoTitleEditorProps, createTodoTitleEditorProps } from "../../props/form-controls/todo-title-editor";
+
 import { TodoItem } from "../../model";
-
+import { TodoTitleEditorState, createTodoTitleEditorState } from "../../state/form-controls/todo-title-editor";
 import { TodoEditorState, createTodoEditorState } from "../../state/forms/todo-editor";
-import { TodoEditorDispatcher } from "../../dispatchers/forms/todo-editor";
-import { TodoEditorProps } from "../../props/forms/todo-editor";
-
-import { TodoTitleEditorConnector } from "../../connectors/form-controls/todo-title-editor";
-
 
 
 export class TodoEditorStore extends Store<TodoEditorState, TodoEditorProps> {
     private _dispatcher: TodoEditorDispatcher;
-
-    private _titleConnector: TodoTitleEditorConnector;
+    private _titleDispatcher: TodoTitleEditorDispatcher;
 
     constructor(todo: TodoItem) {
         const state: TodoEditorState = createTodoEditorState(todo);
         super(state);
 
         this._dispatcher = new TodoEditorDispatcher();
-        this._dispatcher.onDeleteTodo.bind(this, this.onDeleteTodo);
-        this._dispatcher.onUpdateTodo.bind(this, this.onUpdateTodo);
+        this._dispatcher.deleteTodo(this, this.onDeleteTodo);
+        this._dispatcher.updateTodo(this, this.onUpdateTodo);
 
-        this._titleConnector = new TodoTitleEditorConnector();
-        this._titleConnector.change(this, this.onTitleChange);
+        this._titleDispatcher = new TodoTitleEditorDispatcher();
+        this._titleDispatcher.updateTitle(this, this.onUpdateTitle);
+        this._titleDispatcher.focus(this, this.onFocusTitle);
     }
 
 
     public toProps(state: TodoEditorState): TodoEditorProps {
         return {
-            title: state.title,
+            title: createTodoTitleEditorProps(state.title, this._titleDispatcher),
 
             isDeleting: state.isDeleting,
             isUpdating: state.isUpdating,
 
             dispatcher: this._dispatcher,
-
-            titleConnector: this._titleConnector,
         };
     }
 
@@ -55,9 +51,20 @@ export class TodoEditorStore extends Store<TodoEditorState, TodoEditorProps> {
         });
     }
 
-    public onTitleChange(arg: { value: string, isValid: boolean }) {
+
+    public onUpdateTitle(next: string) {
+        const state = this.getState();
+
         this.setState({
-            title: arg.value,
+            title: createTodoTitleEditorState(next, state.title.shouldValidate),
+        });
+    }
+
+    public onFocusTitle(arg: {}) {
+        const state = this.getState();
+
+        this.setState({
+            title: createTodoTitleEditorState(state.title.title, true),
         });
     }
 }

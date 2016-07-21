@@ -1,47 +1,27 @@
 /// <reference path="../../../../../typings/react/react.d.ts"/>
 import React = require("react");
 
+import { Action, createAction, Dispatcher } from "../../../../../src/tarai";
+
 import { TodoEditorProps } from "../../props/forms/todo-editor";
-import { TodoTitleEditorControl } from "../form-controls/todo-title-editor";
-
-/*
-props にある title を TodoTitleEditorStore のコンストラクタに渡す
-
-TodoTitleEditorStore からは
-
-* 更新された title
-* 現在の入力状態の validate 結果
-
-をもらう
+import { TodoTitleEditor } from "../form-controls/todo-title-editor";
 
 
-*/
-
-export class TodoEditorControl extends React.Component<TodoEditorProps, {}> {
+export class TodoEditor extends React.Component<TodoEditorProps, {}> {
     constructor(prop: TodoEditorProps) {
         super(prop);
     }
 
-    public componentWillMount(): void {
-    }
-
-
-    public componentDidMount(): void {
-    }
-
-
-    public componentWillReceiveProps(nextProps: TodoEditorProps, nextContext: any): void {
-    }
-
 
     render() {
-        const that: TodoEditorControl = this;
+        const that: TodoEditor = this;
         const dispatcher = this.props.dispatcher;
+        const isValid = this.props.title.isValid;
 
         return (
             <form className="form-horizontal">
 
-                <TodoTitleEditorControl connector={this.props.titleConnector}/>
+                <TodoTitleEditor {...this.props.title}/>
 
 
                 <div className="form-group">
@@ -49,8 +29,9 @@ export class TodoEditorControl extends React.Component<TodoEditorProps, {}> {
                         <button className="btn btn-default"
                                 onClick={(e: React.MouseEvent) => {
                                     e.preventDefault();
-                                    dispatcher.updateTodo();
-                                }}>
+                                    dispatcher.updateTodo({});
+                                }}
+                                disabled={!isValid}>
                             {(() => {
                                 if (that.props.isUpdating) {
                                     return (
@@ -69,8 +50,9 @@ export class TodoEditorControl extends React.Component<TodoEditorProps, {}> {
                         <button className="btn btn-danger"
                                 onClick={(e: React.MouseEvent) => {
                                     e.preventDefault();
-                                    dispatcher.deleteTodo();
-                                }}>
+                                    dispatcher.deleteTodo({});
+                                }}
+                                disabled={!isValid}>
                             {(() => {
                                 if (that.props.isDeleting) {
                                     return (
