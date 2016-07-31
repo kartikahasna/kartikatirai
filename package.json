@@ -1,11 +1,11 @@
 {
   "name": "tarai",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Library for Typed Flux",
   "main": "src/tarai.js",
   "scripts": {
     "pretest": "tsc",
-    "test": "mocha",
+    "test": "mocha 'test/**/*.js'",
     "prepublish": "tsc"
   },
   "repository": {
@@ -29,8 +29,7 @@
     "sinon": "^1.17.4"
   },
   "dependencies": {
-    "object-assign": "^4.1.0",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0"
   }
 }

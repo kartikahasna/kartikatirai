@@ -1,8 +1,7 @@
-/// <reference path="../typings/object-assign/object-assign.d.ts" />
-import objectAssign = require("object-assign");
-
 import { Callback } from "./callback";
 import { Dispatcher } from "./dispatcher";
+
+import { merge } from "./utils/merge";
 
 export interface StatePipe<S> {
     getState(): S;
@@ -16,10 +15,16 @@ export abstract class Store<S, P> {
     private _onUpdate: Callback<P>;
 
     private _updateState(next: S) {
-        this._state = objectAssign({}, this._state, next);
+//        console.log("_updateState");
+//        console.log(this._state);
+
+        this._state = merge<S>(this._state, next);
 
         const props = this.toProps(this._state);
         this._onUpdate.fire(props);
+
+//        console.log(next);
+//        console.log(this._state);
     }
 
     constructor(state: S) {

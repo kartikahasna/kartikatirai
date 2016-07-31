@@ -20,6 +20,11 @@ sample/02_sub_store/ts/**/*.d.ts
 sample/02_sub_store/dist/*.js
 
 
+sample/03_react_test/ts/**/*.js
+sample/03_react_test/ts/**/*.js.map
+sample/03_react_test/ts/**/*.d.ts
+sample/03_react_test/dist/*.js
+
 
 
 # Logs

@@ -32,7 +32,9 @@
     "./src/dispatcher.ts",
     "./src/store.ts",
     "./src/tarai.ts",
+    "./src/utils/merge.ts",
     "./test/test.ts",
+    "./test/utils/merge.ts",
     "./sample/01_spin/ts/sample.ts",
     "./sample/02_sub_store/ts/model.ts",
     "./sample/02_sub_store/ts/page.ts",
@@ -41,9 +43,11 @@
     "./sample/02_sub_store/ts/state/form-controls/todo-title-editor.ts",
     "./sample/02_sub_store/ts/state/forms/todo-editor.ts",
     "./sample/02_sub_store/ts/stores/forms/todo-editor.ts",
+    "./sample/03_react_test/ts/index.ts",
     "./sample/01_spin/ts/spin.tsx",
     "./sample/02_sub_store/ts/components/form-controls/todo-title-editor.tsx",
-    "./sample/02_sub_store/ts/components/forms/todo-editor.tsx"
+    "./sample/02_sub_store/ts/components/forms/todo-editor.tsx",
+    "./sample/03_react_test/ts/component.tsx"
   ],
   "compileOnSave": true,
   "buildOnSave": true,
