@@ -76,6 +76,19 @@ describe("utils/merge", () => {
         assert.ok("" === merge<string>("b", ""));
     });
 
+    it("array", () => {
+        assert.ok(null === merge<number[]>([], null));
+        assert.ok(0 === merge<number[]>(null, []).length);
+        assert.ok(0 === merge<number[]>([], []).length);
+
+        assert.ok(1 === merge<number[]>(null, [0]).length);
+        assert.ok(0 === merge<number[]>(null, [0])[0]);
+
+        assert.ok(2 === merge<number[]>(null, [0, 1]).length);
+        assert.ok(0 === merge<number[]>(null, [0, 1])[0]);
+        assert.ok(1 === merge<number[]>(null, [0, 1])[1]);
+    });
+
 
     it("state", () => {
         const state = createState();
