@@ -58,7 +58,7 @@ export function merge<T>(prev: T, next: T): T {
     }
 
     if (Array.isArray(prev) && Array.isArray(next)) {
-        return <T>(<any>((<any[]>(<any>next)).map((item) => { return clone(next); })));
+        return <T>(<any>((<any[]>(<any>next)).map((item) => { return clone(item); })));
     }
 
     const result = <T>(new Object(prev));
