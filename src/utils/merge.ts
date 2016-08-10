@@ -6,6 +6,10 @@ export function isValueType(obj: any): boolean {
 }
 
 export function clone<T>(obj: T): T {
+    if (Array.isArray(obj)) {
+        return <T>(<any>(<any[]>(<any>obj)).map(i => clone(i)));
+    }
+
     if (typeof obj === "object") {
         return <T>new Object(obj);
     }
@@ -28,7 +32,6 @@ export function merge<T>(prev: T, next: T): T {
         }
 
         return clone<T>(next);
-//        return <T>(new Object(next));
     }
 
     if (prev === null) {
@@ -37,12 +40,10 @@ export function merge<T>(prev: T, next: T): T {
         }
 
         return clone<T>(next);
-//        return <T>(new Object(next));
     }
 
     if (next === undefined) {
         return clone<T>(prev);
-//        return <T>(new Object(prev));
     }
 
     if (next === null) {
@@ -54,9 +55,11 @@ export function merge<T>(prev: T, next: T): T {
 
     if ((tPrev !== "object" && tPrev !== "function") && (tNext !== "object" && tNext !== "function")) {
         return clone<T>(next);
-//        return <T>(new Object(next));
     }
 
+    if (Array.isArray(prev) && Array.isArray(next)) {
+        return <T>(<any>((<any[]>(<any>next)).map((item) => { return clone(next); })));
+    }
 
     const result = <T>(new Object(prev));
 

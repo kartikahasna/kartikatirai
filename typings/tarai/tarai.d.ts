@@ -1,4 +1,4 @@
-// Type definitions for tarai v0.0.11
+// Type definitions for tarai v0.0.12
 // Project: https://github.com/inabe49/tarai
 // Definitions by: inabe49 <https://github.com/inabe49>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -39,4 +39,5 @@ declare module "tarai" {
     }
 
     function bind<S, P>(element: HTMLElement, store: Store<S, P>, createElement: (props: P) => __React.ReactElement<P>);
+    function merge<T>(prev: T, next: T): T;
 }

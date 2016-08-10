@@ -3,6 +3,7 @@ import { bind } from "./binder";
 import { Dispatcher } from "./dispatcher";
 import { Store, StatePipe } from "./store";
 
+import { merge } from "./utils/merge";
 
 export {
     Action,
@@ -12,4 +13,6 @@ export {
     Dispatcher,
     StatePipe,
     Store,
+
+    merge,
 };
