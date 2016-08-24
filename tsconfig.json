@@ -17,6 +17,9 @@
     "./sample/**/*.ts",
     "./sample/**/*.tsx",
     "!./sample/**/*.d.ts",
+    "./qunit/ts/**/*.ts",
+    "./qunit/ts/**/*.tsx",
+    "!./qunit/ts/**/*.d.ts",
     "!./node_modules/**/*.ts",
     "!./typings/**/*.ts"
   ],
@@ -36,6 +39,7 @@
     "./test/test.ts",
     "./test/utils/merge/array.ts",
     "./test/utils/merge/primitives.ts",
+    "./test/utils/merge/ref.ts",
     "./test/utils/merge/state.ts",
     "./test/utils/merge/sub-state.ts",
     "./sample/01_spin/ts/sample.ts",
@@ -50,7 +54,11 @@
     "./sample/01_spin/ts/spin.tsx",
     "./sample/02_sub_store/ts/components/form-controls/todo-title-editor.tsx",
     "./sample/02_sub_store/ts/components/forms/todo-editor.tsx",
-    "./sample/03_react_test/ts/component.tsx"
+    "./sample/03_react_test/ts/component.tsx",
+    "./qunit/ts/merge/array.ts",
+    "./qunit/ts/merge/primitives.ts",
+    "./qunit/ts/merge/ref.ts",
+    "./qunit/ts/test.ts"
   ],
   "compileOnSave": true,
   "buildOnSave": true,

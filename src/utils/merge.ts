@@ -11,7 +11,13 @@ export function clone<T>(obj: T): T {
     }
 
     if (typeof obj === "object") {
-        return <T>new Object(obj);
+        const result: T = <T>({});
+
+        for (const key in obj) {
+            result[key] = clone(obj[key]);
+        }
+
+        return result;
     }
 
     if (typeof obj === "function") {
@@ -61,7 +67,7 @@ export function merge<T>(prev: T, next: T): T {
         return <T>(<any>((<any[]>(<any>next)).map((item) => { return clone(item); })));
     }
 
-    const result = <T>(new Object(prev));
+    const result = clone<T>(prev);
 
     for (const key in next) {
         if (Object.prototype.hasOwnProperty.call(next, key)) {

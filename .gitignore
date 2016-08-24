@@ -7,6 +7,12 @@ test/**/*.js
 test/**/*.js.map
 test/**/*.d.ts
 
+qunit/ts/**/*.js
+qunit/ts/**/*.js.map
+qunit/ts/**/*.d.ts
+
+qunit/test.js
+
 
 sample/01_spin/ts/**/*.js
 sample/01_spin/ts/**/*.js.map

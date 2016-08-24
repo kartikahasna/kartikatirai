@@ -5,3 +5,16 @@ task("build", function() {
     jake.exec("browserify sample/02_sub_store/ts/page.js > sample/02_sub_store/dist/index.js");
     jake.exec("browserify sample/03_react_test/ts/index.js > sample/03_react_test/dist/index.js");
 });
+
+
+desc("install tools");
+task("install", function() {
+    jake.exec("npm install -g browserify");
+});
+
+
+desc("test");
+task("test", function() {
+    jake.exec("tsc");
+    jake.exec("browserify qunit/ts/test.js > qunit/test.js");
+});
