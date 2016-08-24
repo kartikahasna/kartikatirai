@@ -1,6 +1,6 @@
 {
   "name": "tarai",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Library for Typed Flux",
   "main": "src/tarai.js",
   "scripts": {
