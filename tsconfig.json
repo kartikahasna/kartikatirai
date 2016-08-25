@@ -35,6 +35,7 @@
     "./src/utils/merge.ts",
     "./test/test.ts",
     "./test/utils/merge/array.ts",
+    "./test/utils/merge/null.ts",
     "./test/utils/merge/primitives.ts",
     "./test/utils/merge/ref.ts",
     "./test/utils/merge/state.ts",

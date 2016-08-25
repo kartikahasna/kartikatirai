@@ -6,6 +6,14 @@ export function isValueType(obj: any): boolean {
 }
 
 export function clone<T>(obj: T): T {
+    if (obj === undefined) {
+        return undefined;
+    }
+
+    if (obj === null) {
+        return null;
+    }
+
     if (Array.isArray(obj)) {
         return <T>(<any>(<any[]>(<any>obj)).map(i => clone(i)));
     }
