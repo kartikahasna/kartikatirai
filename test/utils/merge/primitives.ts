@@ -30,4 +30,11 @@ describe("utils/merge primitives", () => {
         assert.ok("a" === merge<string>("b", "a"));
         assert.ok("" === merge<string>("b", ""));
     });
+
+
+    it("Date", () => {
+        const d = new Date(2016, 1, 1, 1, 1, 1);
+
+        assert.ok(d.getTime() === merge<Date>(null, d).getTime());
+    });
 });

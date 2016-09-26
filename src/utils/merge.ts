@@ -15,7 +15,11 @@ export function clone<T>(obj: T): T {
     }
 
     if (Array.isArray(obj)) {
-        return <T>(<any>(<any[]>(<any>obj)).map(i => clone(i)));
+        return <T><any>(<any[]><any>obj).map(i => clone(i));
+    }
+
+    if (Object.prototype.toString.call(obj) === "[object Date]") {
+        return <T><any>(new Date((<Date><any>obj).getTime()));
     }
 
     if (typeof obj === "object") {
