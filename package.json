@@ -1,6 +1,6 @@
 {
   "name": "tarai",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Library for Typed Flux",
   "main": "./src/main.js",
   "types": "./src/main.d.ts",
@@ -21,10 +21,10 @@
   },
   "homepage": "https://github.com/inabe49/tarai",
   "files": [
-    "./src/**/*.js",
-    "./src/**/*.d.ts",
-    "./src/**/*.js.map",
-    "./README.md"
+    "src/**/*.js",
+    "src/**/*.d.ts",
+    "src/**/*.js.map",
+    "README.md"
   ],
   "devDependencies": {
     "@types/mocha": "^2.2.41",
