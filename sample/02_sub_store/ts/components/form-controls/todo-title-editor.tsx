@@ -1,7 +1,6 @@
-/// <reference path="../../../../../typings/react/react.d.ts"/>
-import React = require("react");
+import * as React from "react";
 
-import { Dispatcher } from "../../../../../src/tarai";
+import { Dispatcher } from "../../../../../src/main";
 import { TodoTitleEditorProps } from "../../props/form-controls/todo-title-editor";
 
 
@@ -20,13 +19,13 @@ export class TodoTitleEditor extends React.Component<TodoTitleEditorProps, {}> {
                 <label className="col-sm-2 control-label">Title</label>
                 <div className="col-sm-10">
                     <input type="text" className="form-control" value={this.props.title}
-                           onChange={(e: React.FormEvent) => {
+                           onChange={(e) => {
                                dispatcher.updateTitle((e.target as HTMLInputElement).value);
                            }}
-                           onFocus={(e: React.FocusEvent) => {
+                           onFocus={(e) => {
                                dispatcher.focus({});
                            }}
-                           onBlur={(e: React.FormEvent) => {
+                           onBlur={(e) => {
                                dispatcher.blur({});
                            }}/>
                     {(() => {

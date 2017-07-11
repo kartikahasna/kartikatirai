@@ -1,7 +1,6 @@
-/// <reference path="../../../../../typings/react/react.d.ts"/>
-import React = require("react");
+import * as React from "react";
 
-import { Action, createAction, Dispatcher } from "../../../../../src/tarai";
+import { Action, createAction, Dispatcher } from "../../../../../src/main";
 
 import { TodoEditorProps } from "../../props/forms/todo-editor";
 import { TodoTitleEditor } from "../form-controls/todo-title-editor";
@@ -27,7 +26,7 @@ export class TodoEditor extends React.Component<TodoEditorProps, {}> {
                 <div className="form-group">
                     <div className="col-sm-offset-2 col-sm-10">
                         <button className="btn btn-default"
-                                onClick={(e: React.MouseEvent) => {
+                                onClick={(e) => {
                                     e.preventDefault();
                                     dispatcher.updateTodo({});
                                 }}
@@ -48,7 +47,7 @@ export class TodoEditor extends React.Component<TodoEditorProps, {}> {
                         <b className="white-space"/>
 
                         <button className="btn btn-danger"
-                                onClick={(e: React.MouseEvent) => {
+                                onClick={(e) => {
                                     e.preventDefault();
                                     dispatcher.deleteTodo({});
                                 }}

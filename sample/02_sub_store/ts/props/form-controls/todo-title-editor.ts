@@ -1,7 +1,6 @@
-/// <reference path="../../../../../typings/react/react.d.ts"/>
-import React = require("react");
+import * as React from "react";
 
-import { Action, createAction, Dispatcher } from "../../../../../src/tarai";
+import { Action, createAction, Dispatcher } from "../../../../../src/main";
 
 import { TodoTitleEditorState } from "../../state/form-controls/todo-title-editor";
 

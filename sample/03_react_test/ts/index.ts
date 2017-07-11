@@ -1,7 +1,5 @@
-/// <reference path="../../../typings/react/react.d.ts" />
-/// <reference path="../../../typings/react/react-dom.d.ts"/>
-import React = require("react");
-import ReactDOM = require("react-dom");
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 import { StateComponent } from "./component";
 

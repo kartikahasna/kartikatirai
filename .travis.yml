@@ -4,9 +4,8 @@ node_js:
   - "4.0"
   - "0.12"
 before_install:
-  - npm install -g typescript
-  - npm install -g browserify
-  - npm install
+  - npm install -g yarn
+  - yarn install
 script:
   - npm test
 cache:

@@ -1,5 +1,4 @@
-/// <reference path="../../../typings/react/react.d.ts" />
-import React = require("react");
+import * as React from "react";
 
 
 export interface StateComponentProps {
@@ -45,7 +44,7 @@ export class StateComponent extends React.Component<StateComponentProps, StateCo
 
                 </dl>
 
-                <button onClick={(e: React.MouseEvent) => {
+                <button onClick={(e) => {
                     e.preventDefault();
 
                     that.setState({
