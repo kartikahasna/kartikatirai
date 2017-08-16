@@ -1,4 +1,4 @@
-import { Store } from "../../../../../src/tarai";
+import { Store } from "../../../../../src/main";
 
 import { TodoEditorDispatcher, TodoEditorProps } from "../../props/forms/todo-editor";
 import { TodoTitleEditorDispatcher, TodoTitleEditorProps, createTodoTitleEditorProps } from "../../props/form-controls/todo-title-editor";
